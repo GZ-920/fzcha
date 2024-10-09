@@ -1,33 +1,34 @@
 <html>
 <head>
+    <meta charset="UTF-8">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 </head>
 <body>
     <form id="query-form">
-        <label for="name">ÇëÊäÈëĞÕÃû:</label>
+        <label for="name">è¯·è¾“å…¥å§“å:</label>
         <input type="text" id="name" name="name">
-        <button type="submit">²éÑ¯</button>
+        <button type="submit">æŸ¥è¯¢</button>
     </form>
 
-    <img id="result-image" src="" alt="Í¼Æ¬½«ÔÚ´ËÏÔÊ¾" style="display:none;">
+    <img id="result-image" src="" alt="å›¾ç‰‡å°†åœ¨æ­¤æ˜¾ç¤º" style="display:none;">
 
     <script>
-        // ¶ÁÈ¡CSVÎÄ¼ş
+        // è¯»å–CSVæ–‡ä»¶
         Papa.parse('data/names.csv', {
         download: true,
         header: true,
         complete: function(results) {
         var data = results.data;
 
-        // ²éÑ¯ĞÕÃû²¢ÏÔÊ¾Í¼Æ¬
+        // æŸ¥è¯¢å§“åå¹¶æ˜¾ç¤ºå›¾ç‰‡
         document.getElementById('query-form').onsubmit = function(event) {
         event.preventDefault();
         var name = document.getElementById('name').value;
         var found = false;
 
         for (var i = 0; i < data.length; i++) {
-        if (data[i]['ĞÕÃû'] === name) {
-        var imagePath = data[i]['Í¼Æ¬Â·¾¶'];
+        if (data[i]['å§“å'] === name) {
+        var imagePath = data[i]['å›¾ç‰‡è·¯å¾„'];
         document.getElementById('result-image').src = imagePath;
         document.getElementById('result-image').style.display = 'block';
         found = true;
@@ -36,7 +37,7 @@
         }
 
         if (!found) {
-        alert('Î´ÕÒµ½¸ÃĞÕÃûµÄÍ¼Æ¬');
+        alert('æœªæ‰¾åˆ°è¯¥å§“åçš„å›¾ç‰‡');
         }
         };
         }
