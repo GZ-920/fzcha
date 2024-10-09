@@ -16,6 +16,11 @@
             height: 100vh;
             margin: 0;
         }
+        h1 {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 20px;
+        }
         #query-form {
             background-color: #fff;
             padding: 20px;
@@ -56,9 +61,11 @@
     </style>
 </head>
 <body>
+    <h1>GZ-920 cha系统</h1>  <!-- 添加的大标题 -->
+    
     <form id="query-form">
         <label for="name">请输入姓名:</label>
-        <input type="text" id="name" name="name" placeholder="输入姓名...">
+        <input type="text" id="name" name="name">
         <button type="submit">查询</button>
     </form>
 
@@ -70,7 +77,7 @@
             header: true,
             complete: function(results) {
                 var data = results.data;
-                
+
                 document.getElementById('query-form').onsubmit = function(event) {
                     event.preventDefault();
                     var name = document.getElementById('name').value.trim();
