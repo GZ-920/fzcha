@@ -1,0 +1,46 @@
+<html>
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+</head>
+<body>
+    <form id="query-form">
+        <label for="name">请输入姓名:</label>
+        <input type="text" id="name" name="name">
+        <button type="submit">查询</button>
+    </form>
+
+    <img id="result-image" src="" alt="图片将在此显示" style="display:none;">
+
+    <script>
+        // 读取CSV文件
+        Papa.parse('data/names.csv', {
+        download: true,
+        header: true,
+        complete: function(results) {
+        var data = results.data;
+
+        // 查询姓名并显示图片
+        document.getElementById('query-form').onsubmit = function(event) {
+        event.preventDefault();
+        var name = document.getElementById('name').value;
+        var found = false;
+
+        for (var i = 0; i < data.length; i++) {
+        if (data[i]['姓名'] === name) {
+        var imagePath = data[i]['图片路径'];
+        document.getElementById('result-image').src = imagePath;
+        document.getElementById('result-image').style.display = 'block';
+        found = true;
+        break;
+        }
+        }
+
+        if (!found) {
+        alert('未找到该姓名的图片');
+        }
+        };
+        }
+        });
+    </script>
+</body>
+</html>
