@@ -1,51 +1,97 @@
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据查询</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #query-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        label, input {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 300px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result-image {
+            margin-top: 20px;
+            max-width: 80%;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
     <form id="query-form">
         <label for="name">请输入姓名:</label>
-        <input type="text" id="name" name="name">
+        <input type="text" id="name" name="name" placeholder="输入姓名...">
         <button type="submit">查询</button>
     </form>
 
     <img id="result-image" src="" alt="图片将在此显示" style="display:none;">
 
     <script>
-        // 读取CSV文件
         Papa.parse('data/names.csv', {
-    download: true,
-    header: true,
-    complete: function(results) {
-        var data = results.data;
-        console.log(data);  // 输出 CSV 数据，检查是否正确加载
-        
-        document.getElementById('query-form').onsubmit = function(event) {
-            event.preventDefault();
-            var name = document.getElementById('name').value.trim(); // 去除空格
-            var found = false;
-            console.log("User input:", name);  // 输出用户输入
-
-            for (var i = 0; i < data.length; i++) {
-                console.log("Checking against:", data[i]['姓名']);  // 输出正在比较的姓名
+            download: true,
+            header: true,
+            complete: function(results) {
+                var data = results.data;
                 
-                if (data[i]['name1'] === name) {
-                    var imagePath = data[i]['img1'];
-                    document.getElementById('result-image').src = imagePath;
-                    document.getElementById('result-image').style.display = 'block';
-                    found = true;
-                    break;
-                }
-            }
+                document.getElementById('query-form').onsubmit = function(event) {
+                    event.preventDefault();
+                    var name = document.getElementById('name').value.trim();
+                    var found = false;
 
-            if (!found) {
-                alert('未找到该姓名的图片');
-            }
-        };
-    }
-});
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i]['name1'] === name) {
+                            var imagePath = data[i]['img1'];
+                            document.getElementById('result-image').src = imagePath;
+                            document.getElementById('result-image').style.display = 'block';
+                            found = true;
+                            break;
+                        }
+                    }
 
+                    if (!found) {
+                        alert('未找到该姓名的图片');
+                    }
+                };
+            }
+        });
     </script>
 </body>
 </html>
