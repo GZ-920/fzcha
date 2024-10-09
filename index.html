@@ -15,33 +15,37 @@
     <script>
         // 读取CSV文件
         Papa.parse('data/names.csv', {
-        download: true,
-        header: true,
-        complete: function(results) {
+    download: true,
+    header: true,
+    complete: function(results) {
         var data = results.data;
-
-        // 查询姓名并显示图片
+        console.log(data);  // 输出 CSV 数据，检查是否正确加载
+        
         document.getElementById('query-form').onsubmit = function(event) {
-        event.preventDefault();
-        var name = document.getElementById('name').value;
-        var found = false;
+            event.preventDefault();
+            var name = document.getElementById('name').value.trim(); // 去除空格
+            var found = false;
+            console.log("User input:", name);  // 输出用户输入
 
-        for (var i = 0; i < data.length; i++) {
-        if (data[i]['姓名'] === name) {
-        var imagePath = data[i]['图片路径'];
-        document.getElementById('result-image').src = imagePath;
-        document.getElementById('result-image').style.display = 'block';
-        found = true;
-        break;
-        }
-        }
+            for (var i = 0; i < data.length; i++) {
+                console.log("Checking against:", data[i]['姓名']);  // 输出正在比较的姓名
+                
+                if (data[i]['姓名'] === name) {
+                    var imagePath = data[i]['图片路径'];
+                    document.getElementById('result-image').src = imagePath;
+                    document.getElementById('result-image').style.display = 'block';
+                    found = true;
+                    break;
+                }
+            }
 
-        if (!found) {
-        alert('未找到该姓名的图片');
-        }
+            if (!found) {
+                alert('未找到该姓名的图片');
+            }
         };
-        }
-        });
+    }
+});
+
     </script>
 </body>
 </html>
