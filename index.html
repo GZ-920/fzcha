@@ -30,8 +30,8 @@
             for (var i = 0; i < data.length; i++) {
                 console.log("Checking against:", data[i]['姓名']);  // 输出正在比较的姓名
                 
-                if (data[i]['姓名'] === name) {
-                    var imagePath = data[i]['图片路径'];
+                if (data[i]['name1'] === name) {
+                    var imagePath = data[i]['img1'];
                     document.getElementById('result-image').src = imagePath;
                     document.getElementById('result-image').style.display = 'block';
                     found = true;
