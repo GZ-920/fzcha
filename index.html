@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>数据查询</title>
+    <title>GZ-920 图片查询</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <style>
         body {
@@ -31,7 +31,7 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
-            max-width: 400px;
+            max-width: 300px; /* 限制宽度 */
         }
         label {
             font-size: 1.3rem;
@@ -51,7 +51,7 @@
             background-color: #735d9e;
             color: white;
             border: none;
-            border-radius: 30px;
+            border-radius: 10px;
             font-size: 1.2rem;
             cursor: pointer;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -82,7 +82,7 @@
     </style>
 </head>
 <body>
-    <h1>GZ-920 cha系统</h1>
+    <h1>GZ-920的小站 / 第三方图片查询</h1>
     
     <form id="query-form">
         <label for="name">请输入姓名:</label>
