@@ -17,11 +17,13 @@
             margin: 0;
             color: #fff;
         }
+
         h1 {
             font-size: 3rem;
             margin-bottom: 30px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
+
         #query-form {
             background-color: #fff;
             padding: 30px;
@@ -33,11 +35,13 @@
             width: 100%;
             max-width: 300px; /* 限制宽度 */
         }
+
         label {
             font-size: 1.3rem;
             color: #333;
             margin-bottom: 10px;
         }
+
         input {
             padding: 10px;
             border: 1px solid #ccc;
@@ -46,6 +50,7 @@
             font-size: 1.2rem;
             margin-bottom: 20px;
         }
+
         button {
             padding: 12px 20px;
             background-color: #735d9e;
@@ -56,24 +61,29 @@
             cursor: pointer;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        button:hover {
-            background-color: #5b437a;
-            transform: translateY(-5px);
-            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-        }
+
+            button:hover {
+                background-color: #5b437a;
+                transform: translateY(-5px);
+                box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+            }
+
         #result-image {
             margin-top: 20px;
             max-width: 80%;
             border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+
         @media (max-width: 600px) {
             h1 {
                 font-size: 2.5rem;
             }
+
             #query-form {
                 padding: 20px;
             }
+
             button {
                 font-size: 1rem;
                 padding: 10px 16px;
@@ -83,7 +93,7 @@
 </head>
 <body>
     <h1>GZ-920 图片查询</h1>
-    
+
     <form id="query-form">
         <label for="name">请输入姓名:</label>
         <input type="text" id="name" name="name">
@@ -94,32 +104,35 @@
 
     <script>
         Papa.parse('data/names.csv', {
-            download: true,
-            header: true,
-            complete: function(results) {
-                var data = results.data;
+        download: true,
+        header: true,
+        complete: function(results) {
+        var data = results.data;
 
-                document.getElementById('query-form').onsubmit = function(event) {
-                    event.preventDefault();
-                    var name = document.getElementById('name').value.trim();
-                    var found = false;
+        document.getElementById('query-form').onsubmit = function(event) {
+        event.preventDefault();
+        var name = document.getElementById('name').value.trim();
+        var found = false;
 
-                    for (var i = 0; i < data.length; i++) {
-                        if (data[i]['name1'] === name) {
-                            var imagePath = data[i]['img1'];
-                            document.getElementById('result-image').src = imagePath;
-                            document.getElementById('result-image').style.display = 'block';
-                            found = true;
-                            break;
-                        }
-                    }
+        for (var i = 0; i < data.length; i++) {
+        if (data[i]['name1'] === name) {
+        var imagePath = data[i]['img1'];
+        document.getElementById('result-image').src = imagePath;
+        document.getElementById('result-image').style.display = 'block';
+        found = true;
+        break;
+        }
+        }
 
-                    if (!found) {
-                        alert('你可能打错了字哦~');
-                    }
-                };
-            }
+        if (!found) {
+        alert('你可能打错了字哦~');
+        }
+        };
+        }
         });
     </script>
+    <div class="button:hover">
+        <a href="https://onw.cc/1drv.ms?url=https://1drv.ms/u/s!AjdYJ7nGp5GDhEon-xz76AMz8CaT" class="button">所有文件下载</a>
+    </div>
 </body>
 </html>
