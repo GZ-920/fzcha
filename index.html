@@ -6,24 +6,14 @@
     <title>GZ-920 拼音图片查询(测试版)</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <style>
-        /* Material You 色彩与圆角 */
         :root {
             --primary-color: #6750A4;
             --secondary-color: #CF6679;
             --background-color: #F2E7FE;
             --surface-color: rgba(255, 255, 255, 0.9);
             --text-color: #1C1B1F;
-            --border-radius:5px;
+            --border-radius: 5px;
             --shadow-color: rgba(0, 0, 0, 0.2);
-        }
-
-        /* 配色方案 */
-        .color-theme {
-            --primary-color: var(--primary-color);
-            --secondary-color: var(--secondary-color);
-            --background-color: var(--background-color);
-            --surface-color: var(--surface-color);
-            --text-color: var(--text-color);
         }
 
         body {
@@ -35,12 +25,11 @@
             height: 100vh;
             margin: 0;
             color: var(--text-color);
-            transition: background-color 0.3s ease;
             flex-direction: column;
         }
 
         h1 {
-            font-size: 6vw; /* 使用视口单位 */
+            font-size: 6vw;
             color: var(--primary-color);
             margin-bottom: 30px;
             text-align: center;
@@ -54,19 +43,18 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 90%; /* 让表单占满大部分屏幕宽度 */
+            width: 90%;
             max-width: 400px;
         }
 
         label {
             font-size: 1.2rem;
-            color: var(--text-color);
             margin-bottom: 10px;
         }
 
         input {
             padding: 12px;
-          background-color: #ededed;
+            background-color: #ededed;
             border: 0px solid var(--primary-color);
             border-radius: 5px;
             width: 90%;
@@ -91,200 +79,60 @@
             transform: scale(1.05);
         }
 
-        #result-image {
-            margin-top: 20px;
-            max-width: 100%;
+        #result-container img {
+            margin: 10px;
+            max-width: 90%;
             border-radius: 12px;
             box-shadow: 0 4px 8px var(--shadow-color);
-        }
-
-        /* 设置菜单样式 */
-        .settings-menu {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 15px;
-            padding: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            z-index: 100;
-            display: none;
-        }
-
-        .settings-menu button {
-            background-color: transparent;
-            border: 1px solid var(--primary-color);
-            color: var(--primary-color);
-            padding: 8px 16px;
-            margin: 5px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .settings-menu button:hover {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-        /* 设置菜单关闭按钮 */
-        .settings-menu .close-btn {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background-color: transparent;
-            border: none;
-            color: var(--primary-color);
-            font-size: 1.2rem;
-            cursor: pointer;
-        }
-
-        /* 按钮切换显示 */
-        .settings-toggle {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            padding: 10px;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        /* 响应式设计 */
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 9vw; /* 调整标题的字体大小 */
-            }
-
-            #query-form {
-                padding: 15px;
-            }
-
-            input {
-                font-size: 1.1rem;
-                padding: 10px;
-            }
-
-            button {
-                padding: 10px 16px;
-                font-size: 1rem;
-            }
-
-            .settings-toggle {
-                top: 10px;
-                left: 10px;
-                padding: 8px;
-            }
-
-            .settings-menu {
-                top: 10px;
-                right: 10px;
-                padding: 8px;
-            }
-        }
-
-        /* 非小屏设备上的默认布局 */
-        @media (min-width: 601px) {
-            .settings-toggle {
-                top: 20px;
-                left: 20px;
-                padding: 10px;
-            }
         }
     </style>
 </head>
 <body>
-    <div class="settings-toggle" onclick="toggleSettingsMenu()"> ⁡ ⁡··· ⁡</div>
-    
-    <div class="settings-menu" id="settings-menu">
-        <button class="close-btn" onclick="toggleSettingsMenu()">完成</button>
-        <h3>选择主题颜色</h3>
-        <button onclick="changeTheme('theme1')">紫色系</button>
-        <button onclick="changeTheme('theme2')">蓝色系</button>
-        <button onclick="changeTheme('theme3')">红色系</button>
-    </div>
+    <h1>GZ-920 图片查询</h1>
+    <form id="query-form">
+        <label for="name">请输入姓名拼音首字母(小写!)</label>
+        <input type="text" id="name" name="name">
+        <button type="submit">查询</button>
+        <a href="https://mpimg.cn/down.php/b56f105f2621870cafd73882fbfa15eb.7z" style="margin-top: 10px; color: var(--primary-color); text-decoration: none;">所有文件下载</a>
+    </form>
 
-    <div>
-        <h1>GZ-920 图片查询</h1>
-
-        <form id="query-form">
-            <label for="name">请输入姓名拼音首字母(小写!)</label>
-            <input type="text" id="name" name="name">
-            <button type="submit">查询</button>
-            <a href="https://mpimg.cn/down.php/b56f105f2621870cafd73882fbfa15eb.7z" style="margin-top: 10px; color: var(--primary-color); text-decoration: none;">所有文件下载</a>
-        </form>
-
-        <img id="result-image" src="" alt="你是不是没打字呢" style="display:none;">
-    </div>
+    <div id="result-container" style="margin-top: 20px; text-align: center;"></div>
 
     <script>
-        // 随机选择颜色主题
-        function getRandomColorTheme() {
-            const themes = ['theme1', 'theme2', 'theme3'];
-            const randomIndex = Math.floor(Math.random() * themes.length);
-            return themes[randomIndex];
-        }
-
-        // 更改主题颜色
-        function changeTheme(theme) {
-            const root = document.documentElement;
-            if (theme === 'theme1') {
-                root.style.setProperty('--primary-color', '#6750A4');
-                root.style.setProperty('--secondary-color', '#CF6679');
-                root.style.setProperty('--background-color', '#F2E7FE');
-                root.style.setProperty('--surface-color', 'rgba(255, 255, 255, 0.9)');
-                root.style.setProperty('--text-color', '#1C1B1F');
-            } else if (theme === 'theme2') {
-                root.style.setProperty('--primary-color', '#0078D4');
-                root.style.setProperty('--secondary-color', '#A7C7E7');
-                root.style.setProperty('--background-color', '#E9F1FF');
-                root.style.setProperty('--surface-color', 'rgba(255, 255, 255, 0.9)');
-                root.style.setProperty('--text-color', '#323130');
-            } else if (theme === 'theme3') {
-                root.style.setProperty('--primary-color', '#D32F2F');
-                root.style.setProperty('--secondary-color', '#F57C00');
-                root.style.setProperty('--background-color', '#FFEBEE');
-                root.style.setProperty('--surface-color', 'rgba(255, 255, 255, 0.9)');
-                root.style.setProperty('--text-color', '#212121');
-            }
-        }
-
-        // 切换设置菜单显示
-        function toggleSettingsMenu() {
-            const menu = document.getElementById('settings-menu');
-            menu.style.display = menu.style.display === 'none' || menu.style.display === '' ? 'block' : 'none';
-        }
-
-        // 默认加载随机主题
-        window.onload = function() {
-            const randomTheme = getRandomColorTheme();
-            changeTheme(randomTheme);
-        };
-
-        // 表单提交处理
+        // 使用 PapaParse 加载 CSV 文件
         Papa.parse('data/names.csv', {
             download: true,
             header: true,
             complete: function(results) {
                 const data = results.data;
+
+                // 表单提交处理
                 document.getElementById('query-form').onsubmit = function(event) {
                     event.preventDefault();
-                    const name = document.getElementById('name').value.trim();
-                    let found = false;
 
+                    const name = document.getElementById('name').value.trim();
+                    const resultContainer = document.getElementById('result-container');
+
+                    // 清空之前的查询结果
+                    resultContainer.innerHTML = '';
+
+                    // 收集所有匹配图片路径
+                    let matches = [];
                     for (let i = 0; i < data.length; i++) {
                         if (data[i]['name2'] === name) {
-                            const imagePath = data[i]['img1'];
-                            document.getElementById('result-image').src = imagePath;
-                            document.getElementById('result-image').style.display = 'block';
-                            // found = true;
-                            // break;
+                            matches.push(data[i]['img1']);
                         }
                     }
 
-                    if (!found) {
+                    // 如果找到匹配
+                    if (matches.length > 0) {
+                        matches.forEach(imagePath => {
+                            const img = document.createElement('img');
+                            img.src = imagePath;
+                            img.alt = '查询结果图片';
+                            resultContainer.appendChild(img);
+                        });
+                    } else {
                         alert('你可能打错了字哦~');
                     }
                 };
@@ -292,4 +140,4 @@
         });
     </script>
 </body>
-</html>
+    </html>
